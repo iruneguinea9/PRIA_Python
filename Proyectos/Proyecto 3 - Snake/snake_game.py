@@ -1,4 +1,4 @@
-# snake_game.py
+# serpiente_game.py
 
 import pygame
 import random
@@ -9,7 +9,7 @@ pygame.init()
 WIDTH = 600
 HEIGHT = 600
 ventana = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Snake")
+pygame.display.set_caption("Serpiente")
 
 # Colores
 NEGRO = (0, 0, 0)
@@ -29,7 +29,7 @@ def pintar_text(text, color, size, x, y):
     texto_rect.center = (x, y)
     ventana.blit(texto_surface, texto_rect)
 
-class Snake:
+class Serpiente:
     def __init__(self):
         self.posicion = [(200, 200), (220, 200), (240, 200)]
         self.direccion = 'RIGHT'
@@ -70,7 +70,7 @@ class Comida:
         pygame.draw.rect(ventana, ROJO, (self.posicion[0], self.posicion[1], 20, 20))
 
 def main():
-    snake = Snake()
+    serpiente = Serpiente()
     comida = Comida()
     puntos = 0
     game_over = False
@@ -79,28 +79,28 @@ def main():
             if evento.type == pygame.QUIT:
                 game_over = True
             elif evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_UP and snake.direccion != 'DOWN':
-                    snake.direccion = 'UP'
-                elif evento.key == pygame.K_DOWN and snake.direccion != 'UP':
-                    snake.direccion = 'DOWN'
-                elif evento.key == pygame.K_LEFT and snake.direccion != 'RIGHT':
-                    snake.direccion = 'LEFT'
-                elif evento.key == pygame.K_RIGHT and snake.direccion != 'LEFT':
-                    snake.direccion = 'RIGHT'
+                if evento.key == pygame.K_UP and serpiente.direccion != 'DOWN':
+                    serpiente.direccion = 'UP'
+                elif evento.key == pygame.K_DOWN and serpiente.direccion != 'UP':
+                    serpiente.direccion = 'DOWN'
+                elif evento.key == pygame.K_LEFT and serpiente.direccion != 'RIGHT':
+                    serpiente.direccion = 'LEFT'
+                elif evento.key == pygame.K_RIGHT and serpiente.direccion != 'LEFT':
+                    serpiente.direccion = 'RIGHT'
 
-        snake.mover()
+        serpiente.mover()
 
-        if snake.se_ha_pegao():
+        if serpiente.se_ha_pegao():
             game_over = True
 
-        if snake.posicion[0] == comida.posicion:
-            snake.crecer()
+        if serpiente.posicion[0] == comida.posicion:
+            serpiente.crecer()
             puntos += 1
             comida.posicion = (random.randint(0, WIDTH - 20) // 20 * 20,
                               random.randint(0, HEIGHT - 20) // 20 * 20)
 
         ventana.fill(NEGRO)
-        snake.pintar()
+        serpiente.pintar()
         comida.pintar()
         
         pintar_text(f'Puntuación: {puntos}', BLANCO, 30, 10, 10)
