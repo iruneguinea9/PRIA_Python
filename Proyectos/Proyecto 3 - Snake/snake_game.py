@@ -53,7 +53,7 @@ class Snake:
 
     def pintar(self):
         for pos in self.posicion:
-            pygame.pintar.rect(ventana, VERDE, (pos[0], pos[1], 20, 20))
+            pygame.draw.rect(ventana, VERDE, (pos[0], pos[1], 20, 20))
 
     def crecer(self):
         self.tamanio += 1
@@ -67,14 +67,13 @@ class Comida:
                           random.randint(0, HEIGHT - 20) // 20 * 20)
 
     def pintar(self):
-        pygame.pintar.rect(ventana, ROJO, (self.posicion[0], self.posicion[1], 20, 20))
+        pygame.draw.rect(ventana, ROJO, (self.posicion[0], self.posicion[1], 20, 20))
 
 def main():
     snake = Snake()
     comida = Comida()
     puntos = 0
     game_over = False
-
     while not game_over:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -109,7 +108,8 @@ def main():
         pygame.display.update()
         clock.tick(10)
 
-    pygame.quit()
+    if (game_over):
+        pygame.quit()
 
 if __name__ == "__main__":
     main()
